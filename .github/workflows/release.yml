@@ -47,9 +47,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tagName: v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
+          tagName: v__VERSION__
           releaseName: 'Exhaust Manager v__VERSION__'
           releaseBody: 'See the assets below to download the latest version.'
           releaseDraft: true
           prerelease: false
           args: ${{ matrix.args }}
+          includeAssets: 'src-tauri/target/i686-pc-windows-msvc/release/bundle/msi/*.msi, src-tauri/target/i686-pc-windows-msvc/release/bundle/nsis/*.exe'
