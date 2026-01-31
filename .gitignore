@@ -1,0 +1,79 @@
+# =========================
+# Node / Vite / Frontend
+# =========================
+node_modules/
+dist/
+dist-ssr/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.env
+.env.local
+.env.*.local
+
+# Vite cache
+.vite/
+
+# =========================
+# Tauri / Rust / Cargo
+# =========================
+src-tauri/target/
+src-tauri/gen/
+src-tauri/.cargo/
+
+# Tauri build artifacts
+src-tauri/binaries/
+src-tauri/icons/icon.ico
+src-tauri/icons/icon.icns
+
+# =========================
+# SQLite (local desktop DB)
+# =========================
+*.db
+*.sqlite
+*.sqlite3
+
+# (if you later add backups)
+*.db-journal
+*.db-wal
+*.db-shm
+
+# =========================
+# OS / Editor junk
+# =========================
+.DS_Store
+Thumbs.db
+
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+.idea/
+*.swp
+*.swo
+
+# =========================
+# Logs / temp
+# =========================
+logs/
+tmp/
+temp/
+
+# =========================
+# Build outputs
+# =========================
+build/
+release/
+
+# =========================
+# Misc
+# =========================
+*.tgz
+*.zip
+
+# Optional: screenshots / exports
+*.png
+*.jpg
+*.jpeg

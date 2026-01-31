@@ -1,0 +1,31 @@
+{
+  "$schema": "./gen/schemas/desktop-schema.json",
+  "productName": "Exhaust Manager",
+  "version": "0.1.0",
+  "identifier": "com.totalpaie.exhaust.manager",
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build",
+    "devUrl": "http://localhost:5173",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "Exhaust Manager",
+        "width": 1200,
+        "height": 800,
+        "resizable": true
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "plugins": {
+    "sql": {
+      "preload": ["sqlite:exhaust.db"]
+    }
+  }
+}
