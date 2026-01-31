@@ -2,7 +2,6 @@ import * as React from 'react'
 import type { Exhaust } from '@/types/exhaust'
 import { listExhaust, ensureTable } from '@/lib/database/exhaust-repo'
 import { buildDesignation } from '@/lib/utils/designation'
-import { seedDatabase } from '@/lib/database/seeder'
 
 export function useExhausts() {
   const [data, setData] = React.useState<Exhaust[]>([])
@@ -15,30 +14,20 @@ export function useExhausts() {
     setLoading(true)
     setError(null)
     try {
+      await ensureTable()
       const rows = await listExhaust()
       setData(rows)
     } catch (err: any) {
-      console.error(err)
-      setError(err?.message ?? 'Impossible de charger la base SQLite.')
+      console.error('Database Error:', err)
+      const message = err instanceof Error ? err.message : String(err)
+      setError(message || 'Une erreur inconnue est survenue lors de l\'accès à la base de données.')
     } finally {
       setLoading(false)
     }
   }, [])
 
   React.useEffect(() => {
-    async function init() {
-      try {
-        setSeeding(true)
-        await ensureTable()
-        await seedDatabase()
-      } catch (err) {
-        console.error('Seeding failed:', err)
-      } finally {
-        setSeeding(false)
-        void refresh()
-      }
-    }
-    void init()
+    refresh()
   }, [refresh])
 
   const filtered = React.useMemo(() => {

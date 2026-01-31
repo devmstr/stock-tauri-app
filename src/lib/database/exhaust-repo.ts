@@ -1,4 +1,5 @@
 import type { Exhaust, ExhaustInsertInput } from '@/types/exhaust'
+import exhaustsJson from '@/data/exhausts.json'
 import { getDb } from './db'
 
 /**
@@ -130,4 +131,63 @@ export async function updateExhaust(
 export async function deleteExhaust(id: number): Promise<void> {
   const db = await getDb()
   await db.execute(`DELETE FROM exhaust WHERE id = ?`, [id])
+}
+
+export async function deleteAllExhaust(): Promise<void> {
+  const db = await getDb()
+  await db.execute(`DELETE FROM exhaust`)
+}
+
+export async function seedExhausts(): Promise<void> {
+  const db = await getDb()
+
+  console.log('Starting seed process...')
+  await db.execute(`DELETE FROM exhaust`)
+  try {
+    await db.execute(`DELETE FROM sqlite_sequence WHERE name='exhaust'`)
+  } catch (e) {
+    // Sequence might not exist yet, ignore
+  }
+
+  const seen = new Set<string>()
+  const items = Array.isArray(exhaustsJson) ? exhaustsJson : (exhaustsJson as any).default
+  
+  if (!Array.isArray(items)) {
+    console.error('exhaustsJson is not an array')
+    return
+  }
+
+  const BATCH_SIZE = 100
+  let count = 0
+
+  for (let i = 0; i < items.length; i += BATCH_SIZE) {
+    const batch = items.slice(i, i + BATCH_SIZE)
+    await db.execute('BEGIN TRANSACTION')
+    try {
+      for (const item of batch) {
+        const description = (item.description ?? '').trim()
+        if (!description) continue
+
+        const barcode = item.barcode ? String(item.barcode).trim() : null
+        const hash = `${barcode ?? ''}|${description}`
+
+        if (seen.has(hash)) continue
+        seen.add(hash)
+
+        await db.execute(
+          `INSERT INTO exhaust (barcode, description, hash, type, painting, carDateRange, isValidated)
+           VALUES (?, ?, ?, ?, ?, ?, ?)`,
+          [barcode, description, hash, '(SST) Silencieux Standard', 'LAF', 'N/A', 0]
+        )
+        count++
+      }
+      await db.execute('COMMIT')
+    } catch (err) {
+      await db.execute('ROLLBACK')
+      console.error('Batch error:', err)
+      // Continue to next batch
+    }
+  }
+  
+  console.log(`Seeding finished. total items: ${count}`)
 }

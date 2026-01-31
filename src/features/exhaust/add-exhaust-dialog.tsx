@@ -82,10 +82,9 @@ export function AddExhaustDialog({ onCreated }: Props) {
     setError(null)
 
     if (!form.type.trim()) return setError('Le type est obligatoire.')
+    if (!form.barcode.trim()) return setError('Le barcode est obligatoire.')
     if (!form.carBrand.trim()) return setError('La marque est obligatoire.')
     if (!form.carModel.trim()) return setError('Le modèle est obligatoire.')
-    if (!form.carDateRange.trim())
-      return setError('La plage de dates est obligatoire.')
     if (!form.painting.trim()) return setError('La peinture est obligatoire.')
 
     setIsSaving(true)

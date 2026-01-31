@@ -20,6 +20,8 @@ export default function App() {
     setSearch
   } = useExhausts()
 
+  console.log({ exhausts })
+
   const [printOpen, setPrintOpen] = React.useState(false)
   const [printItem, setPrintItem] = React.useState<Exhaust | null>(null)
 
@@ -30,7 +32,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen p-6">
-      <div className="mx-auto max-w-6xl space-y-6">
+      <div className="mx-auto max-w-7xl space-y-6">
         <header className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h1 className="text-2xl font-semibold tracking-tight">OKI Stock</h1>

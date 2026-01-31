@@ -1,19 +1,20 @@
-import type { Exhaust } from "@/types/exhaust"
-
-export function getComponentTypeCode(exhaustType: string) {
-  const match = exhaustType.match(/^\(([^)]+)\)/)
-  return match?.[1]?.trim() ?? exhaustType.slice(0, 3).toUpperCase()
-}
+import type { Exhaust } from '@/types/exhaust'
 
 export function buildDesignation(e: Exhaust) {
-  const componentTypeCode = getComponentTypeCode(e.type)
-  const brand = (e.carBrand ?? "").trim()
-  const model = (e.carModel ?? "").trim()
-  const type = (e.carType ?? "").trim()
-  const engine = (e.carEngine ?? "").trim()
-  const dateRange = (e.carDateRange ?? "").trim()
-  const painting = (e.painting ?? "").trim()
+  // If we have a full description but no brand/model (e.g. seeded data), use description
+  if (!e.carBrand && !e.carModel && e.description) {
+    return e.description
+  }
 
-  const designation = `${componentTypeCode} ${brand} ${model} ${type} ${engine} ${dateRange} ${painting.toUpperCase()}`.trim()
-  return designation.replace(/\s+/g, " ")
+  const componentTypeCode = e.type?.substring(5) ?? ''
+  const brand = (e.carBrand ?? '').trim()
+  const model = (e.carModel ?? '').trim()
+  const type = (e.carType ?? '').trim()
+  const engine = (e.carEngine ?? '').trim()
+  const dateRange = (e.carDateRange ?? '').trim()
+  const painting = (e.painting ?? '').trim()
+
+  const designation =
+    `${componentTypeCode} ${brand.toUpperCase()} ${model} ${type} ${engine} ${dateRange} ${painting.toUpperCase()}`.trim()
+  return designation.replace(/\s+/g, ' ')
 }

@@ -63,21 +63,21 @@ export const PrintProductLabel = forwardRef<HTMLDivElement, PrintLabelProps>(
         style={{
           width: '100mm',
           height: '60mm',
-          padding: '5mm 6mm',
+          padding: '4mm 4mm 4mm 3mm',
           boxSizing: 'border-box',
           fontFamily: 'Roboto, sans-serif'
         }}
       >
         {/* Company Title */}
         <div className="w-full text-center mb-2">
-          <h1 className="text-[16pt] font-black uppercase leading-none tracking-tight">
+          <h1 className="text-[15pt] font-black uppercase leading-none tracking-tight">
             {companyData.company}
           </h1>
         </div>
 
         {/* Company Logo & Address & QR */}
-        <div className="flex justify-between items-start mb-2 h-[20mm]">
-          <div className="w-[13mm] h-[13mm] flex items-center justify-center">
+        <div className="flex justify-between mb-2 items-start h-[20mm]">
+          <div className="w-[13mm] h-[13mm] pb-0.5 flex items-center justify-center">
             {!imageError ? (
               <img
                 src={normalizedLogoPath || '/oki-logo.svg'}
@@ -93,16 +93,16 @@ export const PrintProductLabel = forwardRef<HTMLDivElement, PrintLabelProps>(
             )}
           </div>
 
-          <div className="flex-1 px-4 text-[8pt] leading-tight font-sans">
-            <p className="font-bold">{companyData.address}</p>
-            <div className="flex justify-between mt-1">
+          <div className="flex-1 px-2  leading-tight font-sans">
+            <p className="font-bold text-[7.65pt]">{companyData.address}</p>
+            <div className="flex text-[7.3pt] gap-2 mt-1">
               <p>Tel: {companyData.phone1}</p>
               <p>Tel: {companyData.phone2}</p>
             </div>
-            <p className="mt-1">Email: {companyData.email}</p>
+            <p className="mt-1 text-[7.3pt]">Email: {companyData.email}</p>
           </div>
 
-          <div className="flex flex-col items-center w-[13mm] h-[13mm]">
+          <div className="flex flex-col items-center w-[12mm] h-[12mm] mt-0.5">
             <QRCodeSVG
               value={qrCode?.substring(0, 12) || ''}
               size={65}
@@ -112,17 +112,20 @@ export const PrintProductLabel = forwardRef<HTMLDivElement, PrintLabelProps>(
         </div>
 
         {/* Product Information */}
-        <div className="flex-1 pl-1 flex flex-col justify-center">
-          <p className="text-[12pt] font-black uppercase leading-[1.1] mb-1 ">
+        <div className="flex-1 pl-1 flex flex-col justify-center pb-5">
+          <p
+            className="text-[12pt]  font-black uppercase leading-[1.1]  "
+            style={{ lineHeight: '1.2rem' }}
+          >
             {designation}
           </p>
         </div>
 
         {/* Bottom Section: Fabriqué & Barcode */}
-        <div className="pl-1 flex justify-between items-end">
-          <div className="text-[7pt] font-bold mb-3">
+        <div className="pl-1 flex gap-3 items-end justify-between">
+          <div className="text-[7pt] font-bold pb-5.5">
             <p>Fabriqué en ALGERIE</p>
-            <p className="font-bold text-[6pt]">
+            <p className="font-semibold text-[6pt]">
               {new Date().toLocaleDateString('fr-FR', {
                 month: 'short',
                 year: 'numeric'
@@ -130,10 +133,10 @@ export const PrintProductLabel = forwardRef<HTMLDivElement, PrintLabelProps>(
             </p>
           </div>
 
-          <div className="flex flex-col items-end">
+          <div className="flex flex-col items-end ">
             <svg
               ref={barcodeRef}
-              style={{ height: '8mm', width: '32mm' }}
+              style={{ height: '9mm', width: '35mm' }}
             ></svg>
             <p className="text-[8pt] font-mono tracking-widest mt-0.5 text-center w-full">
               {barcode}

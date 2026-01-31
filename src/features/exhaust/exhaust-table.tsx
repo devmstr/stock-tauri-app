@@ -126,7 +126,7 @@ export function ExhaustTable({ data, onRequestPrint, onRefresh }: Props) {
   return (
     <div className="w-full">
       {/* Header */}
-      <div className="rounded-2xl border border-border bg-muted">
+      <div className="rounded-t-xl border border-border bg-muted">
         <div
           className="grid items-center"
           style={{ gridTemplateColumns: GRID_TEMPLATE }}
@@ -152,7 +152,7 @@ export function ExhaustTable({ data, onRequestPrint, onRefresh }: Props) {
       {/* Body */}
       <div
         ref={parentRef}
-        className="mt-0.5 h-[65vh] overflow-auto rounded-2xl border border-border"
+        className="mt-0.5 h-[73vh] overflow-auto rounded-b-xl border border-border"
       >
         <div style={{ height: totalSize, position: 'relative' }}>
           {rows.length === 0 ? (

@@ -3,8 +3,8 @@ export type Exhaust = {
   barcode?: string | null
   label?: string | null
   description: string
-  type: string
-  painting: string
+  type: string | null
+  painting: string | null
   qrcode?: string | null
   isValidated?: boolean | null
   createdAt?: string | null
@@ -14,7 +14,7 @@ export type Exhaust = {
   carModel?: string | null
   carType?: string | null
   carEngine?: string | null
-  carDateRange: string
+  carDateRange: string | null
 }
 
-export type ExhaustInsertInput = Omit<Exhaust, "id" | "createdAt" | "updatedAt">
+export type ExhaustInsertInput = Omit<Exhaust, 'id' | 'createdAt' | 'updatedAt'>

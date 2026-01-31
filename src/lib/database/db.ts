@@ -7,18 +7,26 @@ let dbPromise: Promise<Database> | null = null
  * See Tauri SQL plugin docs for `sqlite:<file>.db` connection strings.
  */
 export async function getDb() {
-  // Check if we are in a Tauri environment
-  const isTauri =
-    typeof window !== 'undefined' && (window as any).__TAURI_INTERNALS__
+  const isTauri = !!(
+    window &&
+    ((window as any).__TAURI_INTERNALS__ || (window as any).__TAURI__)
+  )
 
   if (!isTauri) {
     throw new Error(
-      'Database access is only available within the Tauri application.'
+      'Accès à la base de données impossible : vous semblez être dans un navigateur. Veuillez lancer l\'application via Tauri (pnpm tauri:dev).'
     )
   }
 
   if (!dbPromise) {
-    dbPromise = Database.load('sqlite:exhaust.db')
+    try {
+      dbPromise = Database.load('sqlite:exhaust.db')
+      // Await once to catch early connection errors
+      await dbPromise
+    } catch (err) {
+      dbPromise = null
+      throw err
+    }
   }
   return dbPromise
 }

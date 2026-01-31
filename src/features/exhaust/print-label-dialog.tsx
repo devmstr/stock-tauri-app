@@ -44,12 +44,12 @@ export function PrintLabelDialog({ open, onOpenChange, exhaust }: Props) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-180 w-full p-0 overflow-hidden bg-slate-50">
+      <DialogContent className="sm:max-w-130 w-full p-0 overflow-hidden bg-slate-50">
         <DialogHeader className="p-4 bg-white border-b">
           <DialogTitle>Imprimer l'étiquette</DialogTitle>
         </DialogHeader>
 
-        <div className="p-6 flex justify-center ">
+        <div className="py-3 px-5 flex justify-center ">
           {exhaust ? (
             <div className="shadow-xl rounded-sm border bg-white overflow-hidden">
               <PrintProductLabel
@@ -74,11 +74,11 @@ export function PrintLabelDialog({ open, onOpenChange, exhaust }: Props) {
           )}
         </div>
 
-        <DialogFooter className="p-4 bg-white border-t sm:justify-center">
+        <DialogFooter className="py-2  bg-white border-t sm:justify-center">
           <Button
             onClick={handleNativePrint}
             disabled={isPrinting || !exhaust}
-            className="w-full sm:w-auto h-12 px-8 text-lg font-bold gap-2"
+            className="w-full sm:w-auto h-12 py-0 px-4 text-base font-bold gap-2"
           >
             {isPrinting ? (
               <>
@@ -87,8 +87,8 @@ export function PrintLabelDialog({ open, onOpenChange, exhaust }: Props) {
               </>
             ) : (
               <>
-                <Printer className="h-5 w-5" />
-                Imprimer 100x60mm
+                <Printer className="h-7 w-7" />
+                Imprimer 10x6
               </>
             )}
           </Button>

@@ -14,8 +14,8 @@
       {
         "label": "main",
         "title": "Exhaust Manager",
-        "width": 1600,
-        "height": 1200,
+        "width": 1400,
+        "height": 850,
         "resizable": true
       }
     ],
