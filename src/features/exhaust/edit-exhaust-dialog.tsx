@@ -57,7 +57,7 @@ export function EditExhaustDialog({
     if (exhaust) {
       setForm({
         barcode: exhaust.barcode || '',
-        type: exhaust.type,
+        type: exhaust.type as string,
         painting: (exhaust.painting as any) || 'LAF',
         carBrand: exhaust.carBrand || '',
         carModel: exhaust.carModel || '',
